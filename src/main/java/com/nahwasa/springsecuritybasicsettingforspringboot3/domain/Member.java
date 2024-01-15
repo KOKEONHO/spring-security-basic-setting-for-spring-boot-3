@@ -6,38 +6,38 @@ import jakarta.persistence.*;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long memberId;
 
     @Column(unique = true)
-    private String userid;
+    private String email;
 
-    private String pw;
+    private String password;
 
     private String roles;
 
-    private Member(Long id, String userid, String pw, String roleUser) {
-        this.id = id;
-        this.userid = userid;
-        this.pw = pw;
+    private Member(Long memberId, String email, String password, String roleUser) {
+        this.memberId = memberId;
+        this.email = email;
+        this.password = password;
         this.roles = roleUser;
     }
 
     protected Member() {}
 
-    public static Member createUser(String userId, String pw) {
-        return new Member(null, userId, pw, "USER");
+    public static Member createUser(String email, String password) {
+        return new Member(null, email, password, "USER");
     }
 
-    public Long getId() {
-        return id;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getEmail() {
+        return email;
     }
 
-    public String getPw() {
-        return pw;
+    public String getPassword() {
+        return password;
     }
 
     public String getRoles() {

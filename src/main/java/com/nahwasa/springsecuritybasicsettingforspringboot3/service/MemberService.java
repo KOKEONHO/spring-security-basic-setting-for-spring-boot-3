@@ -1,30 +1,31 @@
 package com.nahwasa.springsecuritybasicsettingforspringboot3.service;
 
-import com.nahwasa.springsecuritybasicsettingforspringboot3.domain.Member;
-import com.nahwasa.springsecuritybasicsettingforspringboot3.repository.MemberRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.nahwasa.springsecuritybasicsettingforspringboot3.domain.Member;
+import com.nahwasa.springsecuritybasicsettingforspringboot3.repository.MemberRepository;
 
 @Service
 public class MemberService {
-    private final MemberRepository repository;
+	private final MemberRepository repository;
 
-    @Autowired
-    public MemberService(MemberRepository repository) {
-        this.repository = repository;
-    }
+	@Autowired
+	public MemberService(MemberRepository repository) {
+		this.repository = repository;
+	}
 
-    public Optional<Member> findOne(String userId) {
-        return repository.findByUserid(userId);
-    }
+	public Optional<Member> findOne(String email) {
+		return repository.findByEmail(email);
+	}
 
-    public boolean isValidMember(String userId, String password) {
-        Optional<Member> member = findOne(userId);
-        if (member.isPresent()) {
-            return member.get().getPw().equals(password);
-        }
-        return false;
-    }
+	public boolean isValidMember(String email, String password) {
+		Optional<Member> member = findOne(email);
+		if (member.isPresent()) {
+			return member.get().getPassword().equals(password);
+		}
+		return false;
+	}
 }
